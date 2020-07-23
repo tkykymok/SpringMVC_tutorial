@@ -10,6 +10,9 @@
 <body>
 	<h1>Add Employee</h1>
 	<s:form modelAttribute="employee" action="saveProcess">
+
+		<input type="hidden" value="${employee.hobbies}" id="hiddenTxt">
+		<s:hidden path="id"/>
 		
 		Employee Name:<s:input path="fullname" />
 		<br>
@@ -29,12 +32,28 @@
 			<s:option value="America">America</s:option>
 		</s:select>
 		<br>
-		Address: <s:textarea path="address" /> <br>
-		
+		Address: <s:textarea path="address" />
+		<br>
+
 		<input type="submit" value="Save Employee">
-		
-		
 
 	</s:form>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			var hobbies = $("#hiddenTxt").val().split(",");
+			var checkboxes = $("input[type=checkbox]");
+			checkboxes.each(function(idx, element) {
+				if (hobbies.indexOf(element.value) != -1) {
+					element.setAttribute("checked", "checked");
+				} else {
+					element.removeAttribute("checked")
+				}
+			});
+		});
+	</script>
+
 </body>
 </html>
